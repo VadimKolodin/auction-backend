@@ -1,0 +1,20 @@
+spring:
+  main:
+    banner-mode: off
+    web-application-type: none
+  application:
+    name: migration
+  datasource:
+    url: ${POSTGRES_JDBC_URL:}
+    username: ${POSTGRES_USERNAME:}
+    password: ${POSTGRES_PASSWORD:}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      minimum-idle: 1
+      maximum-pool-size: 1
+      auto-commit: false
+  liquibase:
+    default-schema: ${POSTGRES_SCHEMA}
+    change-log: classpath:/${POSTGRES_SCHEMA}/master.yml
+    database-change-log-table: _databasechangelog
+    database-change-log-lock-table: _databasechangeloglock
