@@ -1,6 +1,5 @@
-package flowdata.frozencredit;
+package flowdata.product.auction;
 
-import common.SoftDeleteEntity;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -9,14 +8,15 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
 @Setter
 @ToString
 @Entity
-@Table(name="frozen_credit")
-public class FrozenCredit extends SoftDeleteEntity {
+@Table(name = "auction")
+public class AuctionEntity {
 
     @Id
     @Column(name = "id")
@@ -25,10 +25,16 @@ public class FrozenCredit extends SoftDeleteEntity {
     @Column(name = "client_id")
     private UUID clientId;
 
-    @Column(name = "auction_id")
-    private UUID auctionId;
+    @Column(name = "seller_id")
+    private UUID sellerId;
 
-    @Column(name = "credit")
-    private Integer credit;
+    @Column(name = "product_id")
+    private UUID productId;
+
+    @Column(name = "price")
+    private Integer price;
+
+    @Column(name = "end_time")
+    private LocalDateTime endTime;
 
 }

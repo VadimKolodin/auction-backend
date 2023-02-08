@@ -1,4 +1,4 @@
-package flowdata.auction;
+package flowdata.product.auction;
 
 import lombok.Getter;
 import lombok.Setter;

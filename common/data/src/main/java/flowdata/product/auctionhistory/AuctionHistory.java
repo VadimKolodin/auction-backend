@@ -1,4 +1,4 @@
-package flowdata.auction;
+package flowdata.product.auctionhistory;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -15,26 +15,21 @@ import java.util.UUID;
 @Setter
 @ToString
 @Entity
-@Table(name = "auction")
-public class AuctionEntity {
-
+@Table(name = "products_auctions_history")
+public class AuctionHistory {
     @Id
     @Column(name = "id")
     private UUID id;
 
-    @Column(name = "client_id")
-    private UUID clientId;
+    @Column(name = "auction_id")
+    private UUID auctionId;
 
     @Column(name = "seller_id")
     private UUID sellerId;
 
-    @Column(name = "product_id")
-    private UUID productId;
-
     @Column(name = "price")
     private Integer price;
 
-    @Column(name = "end_time")
-    private LocalDateTime endTime;
-
+    @Column(name = "time")
+    private LocalDateTime time;
 }

@@ -1,4 +1,4 @@
-package flowdata.inventory;
+package flowdata.user.inventory;
 
 import lombok.Getter;
 import lombok.Setter;

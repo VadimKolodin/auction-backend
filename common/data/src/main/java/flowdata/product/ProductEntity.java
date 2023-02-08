@@ -1,7 +1,8 @@
 package flowdata.product;
 
 import common.SoftDeleteEntity;
-import common.enums.Category;
+import common.enums.SubTag;
+import common.enums.Tag;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -13,7 +14,7 @@ import java.util.UUID;
 @Setter
 @ToString
 @Entity
-@Table(name = "product")
+@Table(name = "products")
 public class ProductEntity extends SoftDeleteEntity {
 
     @Id
@@ -26,13 +27,17 @@ public class ProductEntity extends SoftDeleteEntity {
     @Column(name="description")
     private String description;
 
-    @Lob
-    @Column(name = "image")
-    private Byte[] image;
+    //@Lob
+    //@Column(name = "image")
+    //private Byte[] image;
 
     @Enumerated(EnumType.STRING)
-    @Column(name="category")
-    private Category category;
+    @Column(name="tag")
+    private Tag tag;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name="subTag")
+    private SubTag subTag;
 
     @Column(name= "cost")
     private Integer cost;

@@ -1,4 +1,4 @@
-package flowdata.client;
+package flowdata.user;
 
 import common.SoftDeleteEntity;
 import common.enums.ClientRole;
@@ -13,8 +13,8 @@ import java.util.UUID;
 @Setter
 @ToString
 @Entity
-@Table(name = "client")
-public class ClientEntity extends SoftDeleteEntity {
+@Table(name = "users")
+public class UserEntity extends SoftDeleteEntity {
 
     @Id
     @Column(name = "id")
@@ -23,11 +23,11 @@ public class ClientEntity extends SoftDeleteEntity {
     @Column(name = "login", unique = true)
     private String login;
 
-    @Column(name="password")
-    private String password;
-
     @Column(name="email", unique = true)
     private String email;
+
+    @Column(name="password")
+    private String password;
 
     @Enumerated(EnumType.STRING)
     @Column(name="role")
@@ -35,5 +35,7 @@ public class ClientEntity extends SoftDeleteEntity {
 
     @Column(name="credit")
     private Integer credit;
+
+    //image
 
 }

@@ -1,5 +1,4 @@
 package common.enums;
 
-public enum Category {
-
+public enum SubTag {
 }
