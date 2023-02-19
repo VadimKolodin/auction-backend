@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>auction-backend</artifactId>
-        <groupId>ru.stud</groupId>
-        <version>0.0</version>
+        <groupId>ru.stud.auc</groupId>
+        <version>${revision}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -13,6 +13,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>migration</module>
+        <module>products-service</module>
     </modules>
 
 
