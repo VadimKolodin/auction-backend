@@ -3,7 +3,7 @@ package migrations;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import util.ApplicationUtils;
+import ru.stud.auc.util.ApplicationUtils;
 
 @Slf4j
 @SpringBootApplication

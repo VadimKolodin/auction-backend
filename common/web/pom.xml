@@ -4,11 +4,11 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>common</artifactId>
-        <groupId>ru.stud</groupId>
-        <version>0.0</version>
+        <groupId>ru.stud.auc</groupId>
+        <version>${revision}</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
 
+    <modelVersion>4.0.0</modelVersion>
     <artifactId>web</artifactId>
 
     <dependencies>
@@ -26,9 +26,9 @@
             <artifactId>spring-security-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>ru.stud</groupId>
+            <groupId>ru.stud.auc</groupId>
             <artifactId>exception</artifactId>
-            <version>0.0</version>
+            <version>${revision}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
