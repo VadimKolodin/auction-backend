@@ -1,0 +1,23 @@
+version: '3'
+#http://www.mastertheboss.com/keycloak/keycloak-with-docker/
+#
+services:
+  kc:
+    image: quay.io/keycloak/keycloak:latest
+    environment:
+      DB_VENDOR: POSTGRES
+      DB_ADDR: db
+      DB_DATABASE: auc
+      DB_USER: postgres
+      DB_SCHEMA: gateway
+      DB_PASSWORD: 1234
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+
+    ports:
+      - "9090:8080"
+    command:
+      - start-dev
+ #     - --import-realm
+ #   volumes:
+ #     - /home/keycloak/realm.json:/opt/keycloak/data/import/realm.json
