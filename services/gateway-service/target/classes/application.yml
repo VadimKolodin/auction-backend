@@ -1,0 +1,33 @@
+server:
+  port: ${SERVER_PORT:8080}
+spring:
+  application.name: ${APPLICATION_NAME:gateway}
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:9090/realms/auc_realm
+      client:
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:9090/realms/auc_realm
+            user-name-attribute: preferred_username
+            bearer-only: true
+        registration:
+          keycloak:
+            client-id: gateway-client
+            client-secret: SLlgCkPi9NsmB1aySgB5zS8vDhCkvaGt
+            scope: openid
+            bearer-only: true
+            authorization-grant-type: authorization_code
+            redirect-uri: '{baseUrl}/login/oauth2/code/{registrationId}'
+auc:
+  security:
+    permitall:
+      - "/"
+      - "/login**"
+      - "/callback/"
+      - "/webjars/**"
+      - "/error**"
+      - "/oauth2/authorization/**"
+      - "/api/anonymous"
