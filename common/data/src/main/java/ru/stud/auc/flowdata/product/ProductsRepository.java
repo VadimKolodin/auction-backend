@@ -37,6 +37,70 @@ public class ProductsRepository extends SoftDeleteAuditRepository<ProductEntity>
         return em.createQuery(q, ProductView.class).getResultList();
     }
 
+    public List<ProductView> searchProductsByName(String name){
+        String q = """
+                  select new ru.stud.auc.flowdata.product.model.ProductView(
+                   p.id,
+                   p.name,
+                   p.description,
+                   p.image,
+                   p.tag,
+                   p.subTag,
+                   p.cost
+                   ) from ProductEntity p 
+                   where p.isDeleted = false  and
+                   p.name LIKE CONCAT ('%', :name, '%')
+                   """;
+
+        return em.createQuery(q, ProductView.class)
+                .setParameter("name", name)
+                .getResultList();
+
+    }
+
+    public List<ProductView> searchProductsByDescription(String description){
+        String q = """
+                  select new ru.stud.auc.flowdata.product.model.ProductView(
+                   p.id,
+                   p.name,
+                   p.description,
+                   p.image,
+                   p.tag,
+                   p.subTag,
+                   p.cost
+                   ) from ProductEntity p 
+                   where p.isDeleted = false  and
+                   p.description LIKE CONCAT ('%', :description, '%')
+                   """;
+
+        return em.createQuery(q, ProductView.class)
+                .setParameter("description", description)
+                .getResultList();
+
+    }
+
+    public List<ProductView> searchProductsByNameOrDescription(String query){
+        String q = """
+                  select new ru.stud.auc.flowdata.product.model.ProductView(
+                   p.id,
+                   p.name,
+                   p.description,
+                   p.image,
+                   p.tag,
+                   p.subTag,
+                   p.cost
+                   ) from ProductEntity p 
+                   where p.isDeleted = false  and
+                   p.name LIKE CONCAT ('%', :query, '%') or
+                   p.description LIKE CONCAT('%', :query, '%') 
+                   """;
+
+        return em.createQuery(q, ProductView.class)
+                .setParameter("query", query)
+                .getResultList();
+
+    }
+
     public void updateProduct(UUID productId,
                               String name,
                               String description,
