@@ -1,5 +1,6 @@
 package ru.stud.auc.auth;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirements;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,24 +14,23 @@ import ru.stud.auc.auth.token.model.RefreshTokenDto;
 import ru.stud.auc.auth.token.model.TokenDto;
 
 @RestController
-@RequestMapping("/api/auth")
 @RequiredArgsConstructor
-public class AuthenticationController {
+public class AuthenticationController implements AuthenticationApi {
 
     private final AuthenticationService service;
 
-    @PostMapping("/register")
+    @Override
     public ResponseEntity<String> register(@RequestBody UserRegistrationDto request) {
         service.register(request);
         return ResponseEntity.ok("Регистрация прошла успешно");
     }
 
-    @PostMapping("/token")
+    @Override
     public ResponseEntity<AuthenticationDto> authenticate(@RequestBody UserAuthDto request) {
         return ResponseEntity.ok(service.generateNewTokens(request));
     }
 
-    @PostMapping("/refresh")
+    @Override
     public ResponseEntity<TokenDto> authenticate(@RequestBody RefreshTokenDto refreshToken) {
         return ResponseEntity.ok(service.generateNewToken(refreshToken.getRefreshToken()));
     }

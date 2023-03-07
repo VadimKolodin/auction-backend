@@ -1,11 +1,17 @@
 package ru.stud.auc.swagger;
 
+import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.media.Content;
 import io.swagger.v3.oas.models.media.MediaType;
 import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.responses.ApiResponse;
 import io.swagger.v3.oas.models.responses.ApiResponses;
+import io.swagger.v3.oas.models.security.OAuthFlow;
+import io.swagger.v3.oas.models.security.OAuthFlows;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.security.SecurityScheme;
+import org.apache.commons.lang3.StringUtils;
 import org.springdoc.core.customizers.OpenApiCustomiser;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,10 +19,17 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class OpenApiConfiguration {
 
+    //TODO: вынести куда-то
+    private static String tokenUrl = "/api/auth";
+
     @Bean
     public OpenAPI openAPI() {
-        return new OpenAPI();
+        OpenAPI info = new OpenAPI();
+        info.addSecurityItem(new SecurityRequirement().addList("token").addList("oauth2"))
+            .components(new Components().addSecuritySchemes("token",new SecurityScheme().name("token").type(SecurityScheme.Type.HTTP).scheme("bearer").bearerFormat("JWT")));
+        return info;
     }
+
 
     @Bean
     public OpenApiCustomiser openApiCustomiser() {
@@ -79,4 +92,6 @@ public class OpenApiConfiguration {
         response.content(new Content().addMediaType("*/*", mediaType));
         return response;
     }
+
+
 }
