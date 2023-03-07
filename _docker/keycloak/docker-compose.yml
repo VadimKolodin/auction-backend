@@ -19,6 +19,3 @@ services:
       - "9443:8443"
     command:
       - start-dev
- #     - --import-realm
- #   volumes:
- #     - /home/keycloak/realm.json:/opt/keycloak/data/import/realm.json

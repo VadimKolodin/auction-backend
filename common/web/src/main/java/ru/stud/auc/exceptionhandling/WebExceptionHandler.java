@@ -1,6 +1,7 @@
 package ru.stud.auc.exceptionhandling;
 
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
+import io.jsonwebtoken.ExpiredJwtException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +30,6 @@ import java.util.UUID;
 @Slf4j
 @RestControllerAdvice
 public class WebExceptionHandler implements IExceptionHandler, ConstraintViolationAdviceTrait, MethodArgumentNotValidAdviceTrait {
-
-    @Autowired
-    private MultipartProperties multipartProperties;
 
     @ExceptionHandler({InsufficientAuthenticationException.class})
     protected ResponseEntity<Problem> handleException(InsufficientAuthenticationException ex, NativeWebRequest request) {
@@ -116,6 +114,11 @@ public class WebExceptionHandler implements IExceptionHandler, ConstraintViolati
             return create(Status.FORBIDDEN, "Доступ запрещен", "Недостаточно прав", request);
         }
         return create(Status.FORBIDDEN, ex, "Доступ запрещен", request);
+    }
+
+    @ExceptionHandler({ExpiredJwtException.class})
+    protected ResponseEntity<Problem> handleException(ExpiredJwtException ex, NativeWebRequest request) {
+        return create(Status.UNAUTHORIZED, ex, "Токен устарел", request);
     }
 
     @ExceptionHandler({ForbiddenException.class})

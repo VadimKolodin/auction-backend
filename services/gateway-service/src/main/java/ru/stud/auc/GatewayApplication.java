@@ -1,4 +1,4 @@
-package ru.stud.auc.controller;
+package ru.stud.auc;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -37,9 +37,10 @@ public class UserEntity extends SoftDeleteEntity {
     @Column(name="credit")
     private Integer credit;
 
-    @Lob
-    @Type(type = "org.hibernate.type.BinaryType")
-    @Column(name = "image")
-    private byte[] image;
+//    @Lob
+//    @Type(type = "org.hibernate.type.BinaryType")
+//    @Column(name = "image")
+//    private byte[] image;
+
 
 }

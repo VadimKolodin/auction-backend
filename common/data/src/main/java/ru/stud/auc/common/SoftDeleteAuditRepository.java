@@ -13,6 +13,12 @@ public class SoftDeleteAuditRepository <T extends SoftDeleteEntity> extends Audi
         return super.persist(e);
     }
 
+    @Override
+    public T persistWithoutUser(T e) {
+        e.setIsDeleted(false);
+        return super.persistWithoutUser(e);
+    }
+
     public void deleteById(UUID id) {
         em.find(clazz, id).setIsDeleted(true);
         em.flush();

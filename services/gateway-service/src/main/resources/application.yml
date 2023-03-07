@@ -1,26 +1,26 @@
 server:
   port: ${SERVER_PORT:8080}
 spring:
-  application.name: ${APPLICATION_NAME:gateway}
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: http://localhost:9090/realms/auc_realm
-      client:
-        provider:
-          keycloak:
-            issuer-uri: http://localhost:9090/realms/auc_realm
-            user-name-attribute: preferred_username
-            bearer-only: true
-        registration:
-          keycloak:
-            client-id: gateway-client
-            client-secret: SLlgCkPi9NsmB1aySgB5zS8vDhCkvaGt
-            scope: openid
-            bearer-only: true
-            authorization-grant-type: authorization_code
-            redirect-uri: '{baseUrl}/login/oauth2/code/{registrationId}'
+  main:
+    banner-mode: off
+  datasource:
+    url: ${POSTGRES_JDBC_URL:jdbc:postgresql://localhost:5432/auc}
+    username: ${POSTGRES_USERNAME:postgres}
+    password: ${POSTGRES_PASSWORD:1234}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 1
+      auto-commit: false
+  jpa:
+    show-sql: ${SHOW_SQL:false}
+    database: postgresql
+    #hibernate:
+      #ddl-auto: validate TODO:раскомментить как будут миграции
+    properties:
+      hibernate.default_schema: gateway
+
+
 auc:
   security:
     permitall:
