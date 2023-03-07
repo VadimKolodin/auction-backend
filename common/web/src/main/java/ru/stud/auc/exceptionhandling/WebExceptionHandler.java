@@ -1,6 +1,10 @@
 package ru.stud.auc.exceptionhandling;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
+import io.jsonwebtoken.ExpiredJwtException;
+import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +13,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
+
 import org.springframework.web.bind.MissingRequestHeaderException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
@@ -24,14 +30,16 @@ import org.zalando.problem.spring.web.advice.validation.MethodArgumentNotValidAd
 import ru.stud.auc.exception.ApiException;
 import ru.stud.auc.exception.ForbiddenException;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 @Slf4j
 @RestControllerAdvice
+@RequiredArgsConstructor
 public class WebExceptionHandler implements IExceptionHandler, ConstraintViolationAdviceTrait, MethodArgumentNotValidAdviceTrait {
 
-    @Autowired
-    private MultipartProperties multipartProperties;
+    private final ObjectMapper objectMapper;
 
     @ExceptionHandler({InsufficientAuthenticationException.class})
     protected ResponseEntity<Problem> handleException(InsufficientAuthenticationException ex, NativeWebRequest request) {
@@ -116,6 +124,11 @@ public class WebExceptionHandler implements IExceptionHandler, ConstraintViolati
             return create(Status.FORBIDDEN, "Доступ запрещен", "Недостаточно прав", request);
         }
         return create(Status.FORBIDDEN, ex, "Доступ запрещен", request);
+    }
+
+    @ExceptionHandler({ExpiredJwtException.class})
+    protected ResponseEntity<Problem> handleException(ExpiredJwtException ex, NativeWebRequest request) {
+        return create(Status.UNAUTHORIZED, ex, "Токен устарел", request);
     }
 
     @ExceptionHandler({ForbiddenException.class})

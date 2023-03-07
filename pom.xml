@@ -20,11 +20,9 @@
         <maven.compiler.target>17</maven.compiler.target>
         <revision>1.0.0</revision>
         <spring.boot.version>2.6.2</spring.boot.version>
-        <spring.cloud.version>2021.0.0</spring.cloud.version>
         <mapstruct.version>1.4.2.Final</mapstruct.version>
         <swagger.version>2.1.10</swagger.version>
         <springdoc.version>1.5.9</springdoc.version>
-        <spring.boot.security.jwt.version>1.1.1.RELEASE</spring.boot.security.jwt.version>
     </properties>
 
     <parent>
@@ -105,13 +103,6 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-dependencies</artifactId>
-                <version>${spring.cloud.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
                 <groupId>org.postgresql</groupId>
                 <artifactId>postgresql</artifactId>
                 <version>42.4.1</version>
@@ -124,17 +115,5 @@
         </dependencies>
     </dependencyManagement>
 
-    <repositories>
-        <repository>
-            <id>milestone</id>
-            <name>milestone</name>
-            <url>https://repo.spring.io/milestone</url>
-        </repository>
-        <repository>
-            <id>maven1</id>
-            <name>maven1</name>
-            <url>https://repo1.maven.org/maven2</url>
-        </repository>
-    </repositories>
 
 </project>
