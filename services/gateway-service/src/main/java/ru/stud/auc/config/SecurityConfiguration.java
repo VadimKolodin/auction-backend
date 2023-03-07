@@ -12,6 +12,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 import ru.stud.auc.auth.jwt.JwtAuthenticationFilter;
+import ru.stud.auc.config.property.AuthenticationProperties;
 
 @Configuration
 @EnableWebSecurity
@@ -20,7 +21,8 @@ public class SecurityConfiguration {
 
   private final JwtAuthenticationFilter jwtAuthFilter;
   private final AuthenticationProvider authenticationProvider;
-  private final LogoutHandler logoutHandler; //TODO:implement
+  private final LogoutHandler logoutHandler;
+  private final AuthenticationProperties authenticationProperties;
 
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -28,7 +30,7 @@ public class SecurityConfiguration {
             .csrf()
             .disable()
             .authorizeHttpRequests()
-            .antMatchers("/api/auth/**")
+            .antMatchers(authenticationProperties.getPermitAll())
             .permitAll()
             .anyRequest()
             .authenticated()

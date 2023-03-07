@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.handler.HandlerExceptionResolverComposite;
-import ru.stud.auc.UsersAuthMapper;
+import ru.stud.auc.users.UsersAuthMapper;
 import ru.stud.auc.auth.token.TokenService;
 import ru.stud.auc.exception.UnauthorizedException;
 import ru.stud.auc.flowdata.UsersRepository;

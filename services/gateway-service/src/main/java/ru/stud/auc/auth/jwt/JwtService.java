@@ -5,9 +5,11 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import ru.stud.auc.auth.token.model.TokenDto;
+import ru.stud.auc.config.property.AuthenticationProperties;
 
 import java.security.Key;
 import java.time.LocalDateTime;
@@ -18,9 +20,12 @@ import java.util.Map;
 import java.util.function.Function;
 
 @Service
+@RequiredArgsConstructor
 public class JwtService {
 
-    private static final String SECRET_KEY = "404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970";
+
+    private final AuthenticationProperties properties;
+
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -32,17 +37,20 @@ public class JwtService {
     }
 
     public TokenDto generateToken(UserDetails userDetails) {
-        return generateToken(new HashMap<>(), userDetails);
+        return generateToken(new HashMap<>(), userDetails, properties.getExpirationMillis());
     }
 
-    public TokenDto generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
+    public TokenDto generateRefreshToken(UserDetails userDetails) {
+        return generateToken(new HashMap<>(), userDetails, properties.getRefreshExpirationMillis());
+    }
+
+    public TokenDto generateToken(Map<String, Object> extraClaims, UserDetails userDetails, long expirationMillis) {
         Date now = new Date(System.currentTimeMillis());
-        Date expiration = new Date(System.currentTimeMillis() + 1000 * 60 * 24);
+        Date expiration = new Date(System.currentTimeMillis() + expirationMillis);
         String token = Jwts.builder()
                    .setClaims(extraClaims)
                    .setSubject(userDetails.getUsername())
                    .setIssuedAt(now)
-                   //TODO: кринж и позор
                    .setExpiration(expiration)
                    .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                    .compact();
@@ -69,7 +77,7 @@ public class JwtService {
     }
 
     private Key getSignInKey() {
-        byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
+        byte[] keyBytes = Decoders.BASE64.decode(properties.getSecretKey());
         return Keys.hmacShaKeyFor(keyBytes);
     }
 }

@@ -5,10 +5,11 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import ru.stud.auc.UsersAuthMapper;
+import ru.stud.auc.users.UsersAuthMapper;
 import ru.stud.auc.auth.model.UserAuthDto;
 import ru.stud.auc.auth.model.UserRegistrationDto;
 import ru.stud.auc.auth.token.TokenService;
+import ru.stud.auc.auth.token.model.AuthenticationDto;
 import ru.stud.auc.auth.token.model.TokenDto;
 import ru.stud.auc.common.enums.ClientRole;
 import ru.stud.auc.exception.NotFoundException;
@@ -39,7 +40,7 @@ public class AuthenticationService {
     }
 
 
-    public TokenDto generateNewToken(UserAuthDto request) {
+    public AuthenticationDto generateNewTokens(UserAuthDto request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getLogin(),
@@ -48,7 +49,11 @@ public class AuthenticationService {
                                           );
         UserEntity user = repository.findByLogin(request.getLogin())
                                     .orElseThrow(() -> new NotFoundException("Пользователь с таким логином и паролем не найден"));
-        return tokenService.generateToken(mapper.toPojo(user));
+        return tokenService.generateTokens(mapper.toPojo(user));
+    }
+
+    public TokenDto generateNewToken(String refreshToken) {
+        return tokenService.generateByRefreshToken(refreshToken);
     }
 
 

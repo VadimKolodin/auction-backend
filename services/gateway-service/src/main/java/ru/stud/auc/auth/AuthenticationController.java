@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.stud.auc.auth.model.UserAuthDto;
 import ru.stud.auc.auth.model.UserRegistrationDto;
+import ru.stud.auc.auth.token.model.AuthenticationDto;
+import ru.stud.auc.auth.token.model.RefreshTokenDto;
 import ru.stud.auc.auth.token.model.TokenDto;
 
 @RestController
@@ -24,8 +26,13 @@ public class AuthenticationController {
     }
 
     @PostMapping("/token")
-    public ResponseEntity<TokenDto> authenticate(@RequestBody UserAuthDto request) {
-        return ResponseEntity.ok(service.generateNewToken(request));
+    public ResponseEntity<AuthenticationDto> authenticate(@RequestBody UserAuthDto request) {
+        return ResponseEntity.ok(service.generateNewTokens(request));
+    }
+
+    @PostMapping("/refresh")
+    public ResponseEntity<TokenDto> authenticate(@RequestBody RefreshTokenDto refreshToken) {
+        return ResponseEntity.ok(service.generateNewToken(refreshToken.getRefreshToken()));
     }
 
 }
