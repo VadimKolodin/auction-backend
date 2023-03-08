@@ -24,8 +24,12 @@
         <dependency>
             <groupId>ru.stud.auc</groupId>
             <artifactId>util</artifactId>
-            <version>1.0.0</version>
-            <scope>compile</scope>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>ru.stud.auc</groupId>
+            <artifactId>web</artifactId>
+            <version>${revision}</version>
         </dependency>
 
     </dependencies>

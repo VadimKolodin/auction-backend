@@ -24,7 +24,6 @@ public class ProductsUpdater {
         productsRepository.updateProduct(productId,
                                          productDto.getName(),
                                          productDto.getDescription(),
-                                         productDto.getImage(),
                                          productDto.getTag(),
                                          productDto.getSubTag(),
                                          productDto.getCost());
