@@ -1,0 +1,26 @@
+server:
+  port: ${SERVER_PORT:8080}
+spring:
+  main:
+    banner-mode: off
+  datasource:
+    url: ${POSTGRES_JDBC_URL:jdbc:postgresql://localhost:5432/auc}
+    username: ${POSTGRES_USERNAME:postgres}
+    password: ${POSTGRES_PASSWORD:1234}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 1
+      auto-commit: false
+  jpa:
+    show-sql: ${SHOW_SQL:false}
+    database: postgresql
+      #hibernate:
+    #ddl-auto: validate TODO:раскомментить как будут миграции
+    properties:
+      hibernate.default_schema: products
+springdoc:
+  api-docs:
+    path: "/api/swagger-docs"
+  swagger-ui:
+    path: "/api/swagger-ui"
