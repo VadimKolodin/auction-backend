@@ -18,7 +18,7 @@ import static ru.stud.auc.product.ProductsApi.PRODUCTS_API_PATH;
 //TODO: методами может пользоваться только админ
 @Validated
 @RequestMapping(PRODUCTS_API_PATH)
-@Tag(name = "Методы для работы с ОДО", description = PRODUCTS_API_PATH)
+@Tag(name = "Методы для работы с товарами", description = PRODUCTS_API_PATH)
 public interface ProductsApi {
     String PRODUCTS_API_PATH = "/api/product";
 

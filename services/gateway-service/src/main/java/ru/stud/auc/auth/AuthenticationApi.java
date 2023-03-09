@@ -21,7 +21,7 @@ import static ru.stud.auc.auth.AuthenticationApi.AUTH_API_PATH;
 
 @Validated
 @RequestMapping(AUTH_API_PATH)
-@Tag(name = "Методы для работы с ОДО", description = AUTH_API_PATH)
+@Tag(name = "Методы для работы с токенами", description = AUTH_API_PATH)
 public interface AuthenticationApi {
     String AUTH_API_PATH = "/api/auth";
 
