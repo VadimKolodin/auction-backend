@@ -104,7 +104,6 @@ public class ProductsRepository extends SoftDeleteAuditRepository<ProductEntity>
     public void updateProduct(UUID productId,
                               String name,
                               String description,
-                              byte[] image,
                               Tag tag,
                               SubTag subTag,
                               Integer cost) {
@@ -113,7 +112,6 @@ public class ProductsRepository extends SoftDeleteAuditRepository<ProductEntity>
                    set 
                    p.name = :name,
                    p.description = :description,
-                   p.image = :image,
                    p.tag = :tag,
                    p.subTag = :subTag,
                    p.cost = :cost
@@ -123,7 +121,6 @@ public class ProductsRepository extends SoftDeleteAuditRepository<ProductEntity>
           .setParameter("productId", productId)
           .setParameter("name", name)
           .setParameter("description", description)
-          .setParameter("image", image)
           .setParameter("tag", tag)
           .setParameter("subTag", subTag)
           .setParameter("cost", cost)

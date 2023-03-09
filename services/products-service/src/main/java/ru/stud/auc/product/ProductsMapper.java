@@ -16,6 +16,7 @@ public interface ProductsMapper {
 
     @Mapping(target = "id", expression = "java(java.util.UUID.randomUUID())")
     @Mapping(target = "isDeleted", ignore = true)
+    @Mapping(target = "image", ignore = true)
     @IgnoreUpdateAuditFileds
     ProductEntity toEntity(ProductDto dto);
 
