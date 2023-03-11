@@ -3,16 +3,16 @@ package ru.stud.auc.auth.jwt;
 import lombok.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.handler.HandlerExceptionResolverComposite;
+import ru.stud.auc.auth.model.UserAuthPojo;
 import ru.stud.auc.users.UsersAuthMapper;
 import ru.stud.auc.auth.token.TokenService;
 import ru.stud.auc.exception.UnauthorizedException;
-import ru.stud.auc.flowdata.UsersRepository;
+import ru.stud.auc.users.UsersAuthRepository;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -28,14 +28,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final TokenService tokenService;
 
-    private final UsersRepository usersRepository;
+    private final UsersAuthRepository usersRepository;
 
 
     private final HandlerExceptionResolver resolver;
 
     public JwtAuthenticationFilter(UsersAuthMapper mapper,
                                    TokenService tokenService,
-                                   UsersRepository usersRepository,
+                                   UsersAuthRepository usersRepository,
                                    List<HandlerExceptionResolver> resolvers) {
         this.mapper = mapper;
         this.tokenService = tokenService;
@@ -56,11 +56,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             String jwt = authHeader.substring(7);
             String login = tokenService.getLoginFromToken(jwt);
             if (login != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                UserDetails userDetails = mapper.toPojo(usersRepository.findByLogin(login).orElseThrow(UnauthorizedException::new));
+                UserAuthPojo userDetails = mapper.toPojo(usersRepository.findByLogin(login).orElseThrow(UnauthorizedException::new));
                 if (tokenService.isTokenExistAndValid(jwt, userDetails)) {
-                    UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                    UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails, userDetails.getId(), userDetails.getAuthorities());
                     authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                     SecurityContextHolder.getContext().setAuthentication(authToken);
+
+
                 }
             }
             filterChain.doFilter(request, response);

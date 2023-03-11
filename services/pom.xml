@@ -15,6 +15,7 @@
         <module>migration</module>
         <module>products-service</module>
         <module>gateway-service</module>
+        <module>users-service</module>
     </modules>
 
     <dependencies>

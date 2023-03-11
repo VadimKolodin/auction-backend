@@ -20,8 +20,6 @@
             <column name="role" type="varchar">
                 <constraints nullable="false"/>
             </column>
-            <column name="credit" type="int"/>
-
             <column name="insert_user_id" type="uuid" >
                 <constraints nullable="false"/>
             </column>
