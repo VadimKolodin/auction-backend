@@ -16,6 +16,8 @@
         <module>web</module>
         <module>exception</module>
         <module>util</module>
+        <module>auth</module>
+        <module>flow-data</module>
     </modules>
 
 
