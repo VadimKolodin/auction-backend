@@ -5,10 +5,12 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import ru.stud.auc.flowdata.user.model.UserView;
+import ru.stud.auc.user.UsersFeignClient;
 import ru.stud.auc.users.UserAuthEntity;
 import ru.stud.auc.users.UsersAuthMapper;
 import ru.stud.auc.auth.model.UserAuthDto;
-import ru.stud.auc.auth.model.UserRegistrationDto;
+import ru.stud.auc.dto.UserRegistrationDto;
 import ru.stud.auc.auth.token.TokenService;
 import ru.stud.auc.auth.token.model.AuthenticationDto;
 import ru.stud.auc.auth.token.model.TokenDto;
@@ -27,11 +29,13 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final UsersAuthMapper mapper;
     private final AuthenticationManager authenticationManager;
+    private final UsersFeignClient usersFeignClient;
 
     @Transactional
     public void register(UserRegistrationDto request) {
         UserAuthEntity user = new UserAuthEntity();
-        user.setId(UUID.randomUUID());
+        UserView userView = usersFeignClient.create(request);
+        user.setId(userView.getId());
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setLogin(request.getLogin());

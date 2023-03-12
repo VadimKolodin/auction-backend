@@ -27,9 +27,6 @@ public class UserEntity extends SoftDeleteEntity {
     @Column(name="email", unique = true)
     private String email;
 
-    @Column(name="password")
-    private String password;
-
     @Enumerated(EnumType.STRING)
     @Column(name="role")
     private ClientRole role;
@@ -37,8 +34,7 @@ public class UserEntity extends SoftDeleteEntity {
     @Column(name="credit")
     private Integer credit;
 
-    @Lob
-    @Type(type = "org.hibernate.type.BinaryType")
+    @Type(type="org.hibernate.type.MaterializedBlobType")
     @Column(name = "image")
     private byte[] image;
 

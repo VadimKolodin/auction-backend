@@ -1,4 +1,4 @@
-package ru.stud.auc.util;
+package ru.stud.auc.annotation.mapstruct;
 
 import org.mapstruct.Mapping;
 
