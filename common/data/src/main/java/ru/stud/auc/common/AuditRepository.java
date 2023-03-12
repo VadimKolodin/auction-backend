@@ -1,6 +1,8 @@
 package ru.stud.auc.common;
 
 
+import org.springframework.security.core.context.SecurityContextHolder;
+
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -9,11 +11,11 @@ public class AuditRepository <T extends UpdateAuditEntity> extends AbstractRepos
 
     public T persist(T e) {
         LocalDateTime now = LocalDateTime.now();
-        //UserPojo user = AuthenticationUtils.getUserInfo();
+        Object userId = SecurityContextHolder.getContext().getAuthentication().getCredentials();
         e.setInsertDatetime(now);
-        //e.setInsertUserId(user.getUserId());
+        e.setInsertUserId((UUID) userId);
         e.setUpdateDatetime(now);
-        //e.setUpdateUserId(user.getUserId());
+        e.setUpdateUserId((UUID) userId);
         return super.persist(e);
     }
 

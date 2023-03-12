@@ -8,6 +8,7 @@ import ru.stud.auc.common.enums.Tag;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 
@@ -22,12 +23,12 @@ public class ProductDto {
 
     private String description;
 
-    @NotBlank
+    @NotNull
     private Tag tag;
 
     private SubTag subTag;
 
     @Min(0)
-    @NotBlank
+    @NotNull
     private Integer cost;
 }

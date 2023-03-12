@@ -6,6 +6,7 @@ import ru.stud.auc.consts.StringConsts;
 import ru.stud.auc.exception.NotFoundException;
 import ru.stud.auc.flowdata.product.ProductEntity;
 import ru.stud.auc.flowdata.product.ProductsRepository;
+import ru.stud.auc.flowdata.product.model.ProductAdminView;
 import ru.stud.auc.flowdata.product.model.ProductView;
 
 import java.util.List;
@@ -19,9 +20,18 @@ public class ProductsGetter {
 
     private final ProductsRepository productsRepository;
 
+    public ProductAdminView getProductWithDeleted(UUID productId) {
+        ProductEntity product = productsRepository.findById(productId)
+                                                  .orElseThrow(() -> new NotFoundException(StringConsts.Product.NOT_FOUND));
+        return productsMapper.toAdminView(product);
+    }
+
     public ProductView getProduct(UUID productId) {
         ProductEntity product = productsRepository.findById(productId)
                                                   .orElseThrow(() -> new NotFoundException(StringConsts.Product.NOT_FOUND));
+        if (product.getIsDeleted()) {
+            throw new NotFoundException(StringConsts.Product.NOT_FOUND);
+        }
         return productsMapper.toView(product);
     }
 
