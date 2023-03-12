@@ -11,9 +11,6 @@
             <column name="login" type="varchar">
                 <constraints nullable="false" unique="true"/>
             </column>
-            <column name="password" type="varchar">
-                <constraints nullable="false"/>
-            </column>
             <column name="email" type="varchar">
                 <constraints nullable="false" unique="true"/>
             </column>

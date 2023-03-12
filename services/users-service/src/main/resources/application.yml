@@ -39,3 +39,4 @@ auth:
     - "/configuration/ui"
     - "/swagger-resources/**"
     - "/configuration/security"
+    - "/api/users/register/**"

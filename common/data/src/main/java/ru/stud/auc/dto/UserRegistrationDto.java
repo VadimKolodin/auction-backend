@@ -1,4 +1,4 @@
-package ru.stud.auc.auth.model;
+package ru.stud.auc.dto;
 
 import lombok.Builder;
 import lombok.Data;

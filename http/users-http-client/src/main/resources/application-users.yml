@@ -1,0 +1,2 @@
+http-clients:
+  users: ${USERS_SERVICE_URI:http://localhost:8082}
