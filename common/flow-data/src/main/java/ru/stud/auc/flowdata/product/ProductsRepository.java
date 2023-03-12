@@ -12,12 +12,12 @@ import java.util.UUID;
 @Repository
 public class ProductsRepository extends SoftDeleteAuditRepository<ProductEntity> {
 
-    public void setIsDeleted(UUID productId, Boolean isDeleted) {
+    public int setIsDeleted(UUID productId, Boolean isDeleted) {
         String q = "update ProductEntity p set p.isDeleted = :isDeleted where p.id = :productId";
-        em.createQuery(q)
+        return em.createQuery(q)
           .setParameter("productId", productId)
           .setParameter("isDeleted", isDeleted)
-          .executeUpdate();
+                .executeUpdate();
     }
 
     public List<ProductView> getAllCurrentProducts() {

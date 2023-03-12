@@ -39,3 +39,5 @@ auth:
     - "/configuration/ui"
     - "/swagger-resources/**"
     - "/configuration/security"
+    - "/api/commons/**"
+    - "/api/product/**"

@@ -28,8 +28,7 @@ public class ProductEntity extends SoftDeleteEntity {
     @Column(name="description")
     private String description;
 
-    @Lob
-    @Type(type = "org.hibernate.type.BinaryType")
+    @Type(type="org.hibernate.type.BinaryType")
     @Column(name = "image")
     private byte[] image;
 
