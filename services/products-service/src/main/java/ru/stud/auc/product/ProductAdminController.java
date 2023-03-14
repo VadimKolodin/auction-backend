@@ -2,10 +2,12 @@ package ru.stud.auc.product;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import ru.stud.auc.flowdata.product.model.ProductAdminView;
 import ru.stud.auc.flowdata.product.model.ProductView;
 import ru.stud.auc.product.model.ProductDto;
 
+import java.io.IOException;
 import java.util.UUID;
 @RestController
 @RequiredArgsConstructor
@@ -34,5 +36,12 @@ public class ProductAdminController implements ProductsAdminApi {
     public void restoreProduct(UUID productId) {
         productsService.restoreProduct(productId);
     }
+
+    @Override
+    public void uploadProduct(UUID productId, MultipartFile photo) throws IOException {
+        productsService.uploadPhoto(productId, photo);
+    }
+
+
 
 }

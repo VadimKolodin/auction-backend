@@ -1,6 +1,8 @@
 package ru.stud.auc.product;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import ru.stud.auc.flowdata.product.model.ProductView;
 import ru.stud.auc.product.model.ProductDto;
@@ -19,4 +21,15 @@ public class ProductsController implements ProductsApi {
     public ProductView getProduct(UUID productId) {
         return productsGetter.getProduct(productId);
     }
+
+    @Override
+    public ResponseEntity<byte[]> getImageProduct(UUID productId) {
+     byte[] bytes =  productsGetter.getProduct(productId).getImage();
+        return ResponseEntity
+                .ok()
+                .contentType(MediaType.IMAGE_PNG)
+                .body(bytes);
+    }
+
+
 }

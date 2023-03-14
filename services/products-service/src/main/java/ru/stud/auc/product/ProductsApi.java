@@ -3,6 +3,8 @@ package ru.stud.auc.product;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirements;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.stud.auc.flowdata.product.model.ProductView;
@@ -27,6 +29,11 @@ public interface ProductsApi {
     @GetMapping("/{productId}")
     @Operation(summary = "Получение товара")
     ProductView getProduct(@PathVariable UUID productId);
+
+    @RequestMapping(value = "{productId}" , method = RequestMethod.GET,
+            produces = MediaType.IMAGE_PNG_VALUE)
+    @Operation(summary = "Получение картинки товара")
+    ResponseEntity<byte[]> getImageProduct(@PathVariable UUID productId);
 
 
 }

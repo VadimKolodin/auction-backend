@@ -17,6 +17,11 @@ public class ProductsUpdater {
     private final ProductsRepository productsRepository;
 
     @Transactional
+    public void setImage(UUID productId, byte[] image) {
+        productsRepository.updateProductImage(productId, image);
+    }
+
+    @Transactional
     public void deleteProduct(UUID productId) {
         int changedProducts = productsRepository.setIsDeleted(productId, true);
         if (changedProducts < 1) {
@@ -40,5 +45,9 @@ public class ProductsUpdater {
                                          productDto.getTag(),
                                          productDto.getSubTag(),
                                          productDto.getCost());
+    }
+    @Transactional
+    public void updateProductImage(){
+
     }
 }
