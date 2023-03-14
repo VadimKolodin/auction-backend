@@ -1,7 +1,7 @@
-package ru.stud.auc.flowdata.user.cart;
+package ru.stud.auc.flowdata.product.cart;
 
 
-import ru.stud.auc.flowdata.user.inventory.InventoryEntityId;
+import ru.stud.auc.flowdata.product.inventory.InventoryEntityId;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

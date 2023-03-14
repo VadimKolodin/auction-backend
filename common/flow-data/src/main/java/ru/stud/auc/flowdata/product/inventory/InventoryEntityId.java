@@ -1,4 +1,4 @@
-package ru.stud.auc.flowdata.user.inventory;
+package ru.stud.auc.flowdata.product.inventory;
 
 import lombok.Getter;
 import lombok.Setter;
