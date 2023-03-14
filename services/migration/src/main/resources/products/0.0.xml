@@ -1,0 +1,40 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <property name="now" value="now()"/>
+
+    <changeSet id="AUC-7" author="Vadim">
+        <createTable tableName="products">
+            <column name="id" type="uuid">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="description" type="varchar"/>
+            <column name="cost" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tag" type="varchar"/>
+            <column name="sub_tag" type="varchar"/>
+            <column name="image" type="bytea"/>
+            <column name="is_deleted" type="bool">
+                <constraints nullable="false"/>
+            </column>
+            <column name="insert_user_id" type="uuid" >
+                <constraints nullable="false"/>
+            </column>
+            <column name="insert_dt" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="update_user_id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="update_dt" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

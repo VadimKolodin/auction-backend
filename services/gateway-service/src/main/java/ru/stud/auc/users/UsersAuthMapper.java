@@ -7,12 +7,12 @@ import org.mapstruct.ReportingPolicy;
 import ru.stud.auc.auth.model.UserAuthPojo;
 import ru.stud.auc.auth.token.model.AuthenticationDto;
 import ru.stud.auc.auth.token.model.TokenDto;
-import ru.stud.auc.flowdata.user.UserEntity;
+
 
 @Mapper(componentModel = "spring", collectionMappingStrategy = CollectionMappingStrategy.TARGET_IMMUTABLE, unmappedSourcePolicy = ReportingPolicy.WARN, unmappedTargetPolicy = ReportingPolicy.WARN)
 public interface UsersAuthMapper {
 
-    UserAuthPojo toPojo(UserEntity e);
+    UserAuthPojo toPojo(UserAuthEntity e);
 
     @Mapping(target = "token", source = "token.token")
     @Mapping(target = "expirationDateTime", source = "token.expirationDateTime")

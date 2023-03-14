@@ -15,7 +15,7 @@ spring:
       auto-commit: false
 
   liquibase:
-    default-schema: ${POSTGRES_SCHEMA:gateway}
-    change-log: classpath:/${POSTGRES_SCHEMA:gateway}/master.yml
+    default-schema: ${POSTGRES_SCHEMA:products}
+    change-log: classpath:/${POSTGRES_SCHEMA:products}/master.yml
     database-change-log-table: _databasechangelog
     database-change-log-lock-table: _databasechangeloglock

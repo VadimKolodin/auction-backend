@@ -12,14 +12,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import ru.stud.auc.users.UsersAuthMapper;
 import ru.stud.auc.exception.NotFoundException;
-import ru.stud.auc.flowdata.UsersRepository;
+import ru.stud.auc.users.UsersAuthRepository;
 
 @Configuration
 @RequiredArgsConstructor
 public class AuthenticationConfig {
 
   private final UsersAuthMapper mapper;
-  private final UsersRepository repository;
+  private final UsersAuthRepository repository;
 
   @Bean
   public UserDetailsService userDetailsService() {

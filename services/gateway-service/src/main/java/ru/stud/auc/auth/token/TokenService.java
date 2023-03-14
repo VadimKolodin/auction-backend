@@ -3,17 +3,18 @@ package ru.stud.auc.auth.token;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+import ru.stud.auc.auth.jwt.JwtReaderService;
 import ru.stud.auc.users.UsersAuthMapper;
-import ru.stud.auc.auth.jwt.JwtService;
+import ru.stud.auc.auth.jwt.JwtGeneratorService;
 import ru.stud.auc.auth.model.UserAuthPojo;
 import ru.stud.auc.auth.token.model.AuthenticationDto;
 import ru.stud.auc.auth.token.model.TokenDto;
 import ru.stud.auc.exception.BadRequestException;
 import ru.stud.auc.exception.UnauthorizedException;
-import ru.stud.auc.flowdata.auth.RefreshTokenEntity;
-import ru.stud.auc.flowdata.auth.RefreshTokenRepository;
-import ru.stud.auc.flowdata.auth.TokenEntity;
-import ru.stud.auc.flowdata.auth.TokenRepository;
+import ru.stud.auc.auth.model.auth.RefreshTokenEntity;
+import ru.stud.auc.auth.model.auth.RefreshTokenRepository;
+import ru.stud.auc.auth.model.auth.TokenEntity;
+import ru.stud.auc.auth.model.auth.TokenRepository;
 import ru.stud.auc.users.UsersGetter;
 
 import javax.transaction.Transactional;
@@ -31,11 +32,13 @@ public class TokenService {
 
     private final RefreshTokenRepository refreshTokenRepository;
 
-    private final JwtService jwtService;
+    private final JwtGeneratorService jwtGeneratorService;
+
+    private final JwtReaderService jwtReaderService;
 
     public boolean isTokenExistAndValid(String token, UserDetails userDetail) {
         TokenEntity tokenEntity = tokenRepository.findByTokenValue(token).orElseThrow( () -> new UnauthorizedException("Токен устарел или не существует"));
-        if (jwtService.isTokenValid(token, userDetail)) {
+        if (jwtReaderService.isTokenValid(token, userDetail)) {
             return true;
         }
         tokenRepository.deleteTokenById(tokenEntity.getId());
@@ -56,7 +59,7 @@ public class TokenService {
                 refreshTokenRepository.findByRefreshTokenValue(refreshToken)
                                       .orElseThrow(() -> new UnauthorizedException("Токен устарел или не существует"));
         UserAuthPojo userAuthPojo = usersGetter.getAuthPojoById(refreshTokenEntity.getUserId());
-        if (jwtService.isTokenValid(refreshToken, userAuthPojo)) {
+        if (jwtReaderService.isTokenValid(refreshToken, userAuthPojo)) {
             return deleteOldAndCreateToken(userAuthPojo);
         }
         refreshTokenRepository.deleteRefreshTokenById(refreshTokenEntity.getId());
@@ -67,7 +70,7 @@ public class TokenService {
     @Transactional(value = Transactional.TxType.MANDATORY)
     protected TokenDto deleteOldAndCreateToken(UserAuthPojo pojo) {
         tokenRepository.deleteTokenByUserId(pojo.getId());
-        TokenDto tokenDto = jwtService.generateToken(pojo);
+        TokenDto tokenDto = jwtGeneratorService.generateToken(pojo);
         TokenEntity tokenEntity = new TokenEntity();
         tokenEntity.setId(UUID.randomUUID());
         tokenEntity.setToken(tokenDto.getToken());
@@ -79,7 +82,7 @@ public class TokenService {
     @Transactional(value = Transactional.TxType.MANDATORY)
     protected TokenDto deleteOldAndCreateRefreshToken(UserAuthPojo pojo) {
         refreshTokenRepository.deleteRefreshTokenByUserId(pojo.getId());
-        TokenDto refreshTokenDto = jwtService.generateRefreshToken(pojo);
+        TokenDto refreshTokenDto = jwtGeneratorService.generateRefreshToken(pojo);
         RefreshTokenEntity refreshTokenEntity = new RefreshTokenEntity();
         refreshTokenEntity.setId(UUID.randomUUID());
         refreshTokenEntity.setToken(refreshTokenDto.getToken());
@@ -89,7 +92,7 @@ public class TokenService {
     }
 
     public String getLoginFromToken(String token) {
-        return jwtService.extractUsername(token);
+        return jwtReaderService.extractUsername(token);
     }
 
 }
