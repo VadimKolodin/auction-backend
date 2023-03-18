@@ -1,6 +1,7 @@
 package ru.stud.auc.user.admin;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 import ru.stud.auc.annotation.hasroles.HasRole;
 import ru.stud.auc.common.enums.ClientRole;
@@ -13,6 +14,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequiredArgsConstructor
 public class UsersAdminController implements UsersAdminApi {
 

@@ -2,6 +2,7 @@ package ru.stud.auc.auth;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import ru.stud.auc.auth.model.UserAuthDto;
@@ -11,6 +12,7 @@ import ru.stud.auc.auth.token.model.RefreshTokenDto;
 import ru.stud.auc.auth.token.model.TokenDto;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequiredArgsConstructor
 public class AuthenticationController implements AuthenticationApi {
 

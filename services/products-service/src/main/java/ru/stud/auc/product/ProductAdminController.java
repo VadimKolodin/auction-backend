@@ -1,6 +1,7 @@
 package ru.stud.auc.product;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 import ru.stud.auc.annotation.hasroles.HasRole;
 import ru.stud.auc.flowdata.product.model.ProductAdminView;
@@ -9,6 +10,7 @@ import ru.stud.auc.product.model.ProductDto;
 
 import java.util.UUID;
 @RestController
+@CrossOrigin(origins = "*")
 @RequiredArgsConstructor
 public class ProductAdminController implements ProductsAdminApi {
 
