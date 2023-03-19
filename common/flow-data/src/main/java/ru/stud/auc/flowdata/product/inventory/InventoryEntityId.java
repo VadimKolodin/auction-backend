@@ -20,7 +20,7 @@ public class InventoryEntityId implements Serializable {
     @Column(name="product_id")
     private UUID productId;
 
-    @Column(name="client_id")
-    private UUID clientId;
+    @Column(name="seller_id")
+    private UUID sellerId;
 
 }
