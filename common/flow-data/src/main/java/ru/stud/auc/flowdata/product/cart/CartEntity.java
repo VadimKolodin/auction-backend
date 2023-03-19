@@ -15,11 +15,11 @@ import javax.persistence.Table;
 @Setter
 @ToString
 @Entity
-@Table(name="casrt")
+@Table(name="products_carts")
 public class CartEntity {
 
     @EmbeddedId
-    private InventoryEntityId id;
+    private CartEntityId id;
 
     @Column(name="amount")
     private Integer amount;

@@ -19,7 +19,7 @@ public class CartEntityId implements Serializable {
     @Column(name="product_id")
     private UUID productId;
 
-    @Column(name="seller_id")
-    private UUID sellerId;
+    @Column(name="client_id")
+    private UUID clientId;
 
 }
