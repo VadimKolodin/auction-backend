@@ -20,7 +20,7 @@ public interface UsersApi {
     String USERS_API_PATH = "/api/user";
 
     @PostMapping("/register")
-    @Operation(summary = "Регистрация пользователя")
+    @Operation(summary = "Внутренний метод для регистрации пользователя")
     UserView create(@Valid @RequestBody UserRegistrationDto request);
 
 
