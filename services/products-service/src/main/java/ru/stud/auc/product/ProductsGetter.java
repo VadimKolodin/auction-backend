@@ -46,12 +46,6 @@ public class ProductsGetter {
         return productsRepository.getAllCurrentProducts();
     }
 
-    public  List<ProductView> searchProductByName(String name) { return productsRepository.searchProductsByName(name); }
 
-    public  List<ProductView> searchProductByDescription(String description)
-    { return productsRepository.searchProductsByDescription(description); }
-
-    public  List<ProductView> searchProductByNameOrDescription(String query)
-    { return productsRepository.searchProductsByNameOrDescription(query); }
 
 }

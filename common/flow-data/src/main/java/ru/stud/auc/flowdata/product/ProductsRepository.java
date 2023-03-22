@@ -1,13 +1,15 @@
 package ru.stud.auc.flowdata.product;
 
+import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.CollectionUtils;
 import ru.stud.auc.common.SoftDeleteAuditRepository;
 import ru.stud.auc.common.enums.SubTag;
 import ru.stud.auc.common.enums.Tag;
 import ru.stud.auc.flowdata.product.model.ProductView;
 
-import java.util.List;
-import java.util.UUID;
+import javax.persistence.TypedQuery;
+import java.util.*;
 
 @Repository
 public class ProductsRepository extends SoftDeleteAuditRepository<ProductEntity> {
@@ -36,8 +38,9 @@ public class ProductsRepository extends SoftDeleteAuditRepository<ProductEntity>
         return em.createQuery(q, ProductView.class).getResultList();
     }
 
-    public List<ProductView> searchProductsByName(String name){
-        String q = """
+    public List<ProductView> searchProductsByName(int maxResult, int offset, Optional<String> nameSearchString, Optional<Boolean> nameAsc, Optional<Boolean> costAsc, List<Tag> tags, List<SubTag> subTags){
+        Map<String, Object> parameters = new HashMap<>();
+        StringBuilder q = new StringBuilder("""
                   select new ru.stud.auc.flowdata.product.model.ProductView(
                    p.id,
                    p.name,
@@ -47,55 +50,33 @@ public class ProductsRepository extends SoftDeleteAuditRepository<ProductEntity>
                    p.subTag,
                    p.cost
                    ) from ProductEntity p 
-                   where p.isDeleted = false  and
-                   p.name LIKE CONCAT ('%', :name, '%')
-                   """;
+                   where p.isDeleted = false               
+                   """);
+        if (nameSearchString.isPresent()) {
+            q.append(" and p.name like :searchString ");
+            parameters.put("searchString", '%'+nameSearchString.get()+'%');
+        }
+        if (CollectionUtils.isEmpty(tags)){
+            q.append(" and p.tag in :tags ");
+            parameters.put("tags", tags);
+        }
+        if (CollectionUtils.isEmpty(subTags)){
+            q.append(" and p.subTag in :subTags ");
+            parameters.put("subTags", subTags);
+        }
+        if(nameAsc.isPresent()){
+            q.append("order by p.name").append(nameAsc.get() ? " asc " : " desc ");
+        }else if (costAsc.isPresent()) {
+            q.append("order by p.cost").append(costAsc.get() ? " asc " : " desc ");
+        }
 
-        return em.createQuery(q, ProductView.class)
-                .setParameter("name", name)
-                .getResultList();
-
-    }
-
-    public List<ProductView> searchProductsByDescription(String description){
-        String q = """
-                  select new ru.stud.auc.flowdata.product.model.ProductView(
-                   p.id,
-                   p.name,
-                   p.description,
-                   p.image,
-                   p.tag,
-                   p.subTag,
-                   p.cost
-                   ) from ProductEntity p 
-                   where p.isDeleted = false  and
-                   p.description LIKE CONCAT ('%', :description, '%')
-                   """;
-
-        return em.createQuery(q, ProductView.class)
-                .setParameter("description", description)
-                .getResultList();
-
-    }
-
-    public List<ProductView> searchProductsByNameOrDescription(String query){
-        String q = """
-                  select new ru.stud.auc.flowdata.product.model.ProductView(
-                   p.id,
-                   p.name,
-                   p.description,
-                   p.image,
-                   p.tag,
-                   p.subTag,
-                   p.cost
-                   ) from ProductEntity p 
-                   where p.isDeleted = false  and
-                   p.name LIKE CONCAT ('%', :query, '%') or
-                   p.description LIKE CONCAT('%', :query, '%') 
-                   """;
-
-        return em.createQuery(q, ProductView.class)
-                .setParameter("query", query)
+        TypedQuery<ProductView> typedQuery=  em.createQuery(q.toString(), ProductView.class);
+        for (Map.Entry<String, Object> param: parameters.entrySet()){
+            typedQuery.setParameter(param.getKey(), param.getValue());
+        }
+        return typedQuery
+                .setMaxResults(maxResult)
+                .setFirstResult(offset)
                 .getResultList();
 
     }
