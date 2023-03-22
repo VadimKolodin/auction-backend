@@ -45,7 +45,7 @@ public interface ProductsAdminApi {
     void restoreProduct(@PathVariable UUID productId);
 
     @HasRole("ADMIN")
-    @PatchMapping("/{productId}")
+    @PatchMapping("upload-image/{productId}")
     @Operation(summary = "Добавление изображения товара")
     void uploadProduct(@PathVariable UUID productId,
                        @RequestParam(required = true, name = "photo")

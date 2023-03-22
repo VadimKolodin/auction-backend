@@ -46,8 +46,4 @@ public class ProductsUpdater {
                                          productDto.getSubTag(),
                                          productDto.getCost());
     }
-    @Transactional
-    public void updateProductImage(){
-
-    }
 }
