@@ -12,8 +12,17 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+//TODO:InventoryDto
 public class SellerProductsDto {
 
-    private UUID sellerId;
-    private List<SellerInventoryProductView> products;
+    private UUID productId;
+    //TODO:add description
+
+    private String name;
+
+    private int amount;
+
+    private int price;
+
+    private byte[] image;
 }

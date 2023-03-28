@@ -1,4 +1,4 @@
-package ru.stud.auc.product.sellerInventory;
+package ru.stud.auc.product.inventory;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -8,10 +8,11 @@ import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
-public class SellerInventoryDeleter {
+public class SellerInventoryUpdater {
+
     private final InventoryRepository inventoryRepository;
 
-    public void deleteFromSellerInventoryProduct(UUID productId, UUID userId) {
-        inventoryRepository.deleteFromSellerInventory(productId, userId);
+    public void updateAmount(UUID productId, UUID sellerId, int amount) {
+        inventoryRepository.updateAmount(productId, sellerId, amount);
     }
 }

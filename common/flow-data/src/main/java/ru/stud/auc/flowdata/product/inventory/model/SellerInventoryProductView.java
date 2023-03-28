@@ -8,7 +8,11 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 public class SellerInventoryProductView {
+    //TODO:add sellerId
+
     private UUID productId;
+
+    //TODO:add description
 
     private String name;
 

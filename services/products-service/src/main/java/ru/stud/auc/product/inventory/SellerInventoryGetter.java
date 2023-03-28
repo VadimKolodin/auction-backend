@@ -1,4 +1,4 @@
-package ru.stud.auc.product.sellerInventory;
+package ru.stud.auc.product.inventory;
 
 
 import lombok.RequiredArgsConstructor;
@@ -15,6 +15,6 @@ public class SellerInventoryGetter {
     private final InventoryRepository inventoryRepository;
 
     public List<SellerInventoryProductView> getSellerInventory(UUID sellerId) {
-        return inventoryRepository.getSellerInventory(sellerId);
+        return inventoryRepository.findSellerInventory(sellerId);
     }
 }

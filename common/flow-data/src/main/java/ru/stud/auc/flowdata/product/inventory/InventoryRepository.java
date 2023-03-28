@@ -3,7 +3,6 @@ package ru.stud.auc.flowdata.product.inventory;
 
 import org.springframework.stereotype.Repository;
 import ru.stud.auc.common.AbstractRepository;
-import ru.stud.auc.flowdata.product.cart.model.CartProductView;
 import ru.stud.auc.flowdata.product.inventory.model.SellerInventoryProductView;
 
 import java.util.List;
@@ -12,7 +11,7 @@ import java.util.UUID;
 
 @Repository
 public class InventoryRepository extends AbstractRepository<InventoryEntity> {
-    public List<SellerInventoryProductView> getSellerInventory(UUID sellerId) {
+    public List<SellerInventoryProductView> findSellerInventory(UUID sellerId) {
         String q = """
                    select new ru.stud.auc.flowdata.product.inventory.model.SellerInventoryProductView(
                    c.id.productId,
@@ -21,8 +20,9 @@ public class InventoryRepository extends AbstractRepository<InventoryEntity> {
                    p.cost,
                    p.image
                    )
-                   from InventoryEntity c inner join ProductEntity p
-                   on c.id.productId = p.id
+                   from InventoryEntity c 
+                   inner join ProductEntity p
+                     on c.id.productId = p.id
                    where
                      c.id.sellerId = :sellerId and
                      p.isDeleted = false
@@ -32,7 +32,7 @@ public class InventoryRepository extends AbstractRepository<InventoryEntity> {
                 .getResultList();
     }
 
-    public int setAmount(UUID productId, UUID sellerId, int amount) {
+    public int updateAmount(UUID productId, UUID sellerId, int amount) {
         String q = "update InventoryEntity" +
                 " c set c.amount = :amount where c.id.productId = :productId and c.id.sellerId = :sellerId";
         return em.createQuery(q)
