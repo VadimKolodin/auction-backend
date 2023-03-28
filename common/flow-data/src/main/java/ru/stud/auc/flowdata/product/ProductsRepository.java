@@ -14,14 +14,6 @@ import java.util.*;
 @Repository
 public class ProductsRepository extends SoftDeleteAuditRepository<ProductEntity> {
 
-    public int setIsDeleted(UUID productId, Boolean isDeleted) {
-        String q = "update ProductEntity p set p.isDeleted = :isDeleted where p.id = :productId";
-        return em.createQuery(q)
-          .setParameter("productId", productId)
-          .setParameter("isDeleted", isDeleted)
-                .executeUpdate();
-    }
-
     public List<ProductView> getAllCurrentProducts() {
         String q = """
                    select new ru.stud.auc.flowdata.product.model.ProductView(
@@ -39,7 +31,6 @@ public class ProductsRepository extends SoftDeleteAuditRepository<ProductEntity>
     }
 
     public List<ProductView> searchProductsByName(int maxResult, int offset, Optional<String> nameSearchString, Optional<Boolean> nameAsc, Optional<Boolean> costAsc, List<Tag> tags, List<SubTag> subTags){
-        Map<String, Object> parameters = new HashMap<>();
         StringBuilder q = new StringBuilder("""
                   select new ru.stud.auc.flowdata.product.model.ProductView(
                    p.id,
@@ -52,6 +43,7 @@ public class ProductsRepository extends SoftDeleteAuditRepository<ProductEntity>
                    ) from ProductEntity p 
                    where p.isDeleted = false               
                    """);
+        Map<String, Object> parameters = new HashMap<>();
         if (nameSearchString.isPresent()) {
             q.append(" and p.name like :searchString ");
             parameters.put("searchString", '%'+nameSearchString.get()+'%');
@@ -64,14 +56,14 @@ public class ProductsRepository extends SoftDeleteAuditRepository<ProductEntity>
             q.append(" and p.subTag in :subTags ");
             parameters.put("subTags", subTags);
         }
-        if(nameAsc.isPresent()){
+        if (nameAsc.isPresent()){
             q.append("order by p.name").append(nameAsc.get() ? " asc " : " desc ");
-        }else if (costAsc.isPresent()) {
+        } else if (costAsc.isPresent()) {
             q.append("order by p.cost").append(costAsc.get() ? " asc " : " desc ");
         }
 
-        TypedQuery<ProductView> typedQuery=  em.createQuery(q.toString(), ProductView.class);
-        for (Map.Entry<String, Object> param: parameters.entrySet()){
+        TypedQuery<ProductView> typedQuery =  em.createQuery(q.toString(), ProductView.class);
+        for (Map.Entry<String, Object> param: parameters.entrySet()) {
             typedQuery.setParameter(param.getKey(), param.getValue());
         }
         return typedQuery
@@ -105,5 +97,13 @@ public class ProductsRepository extends SoftDeleteAuditRepository<ProductEntity>
           .setParameter("subTag", subTag)
           .setParameter("cost", cost)
           .executeUpdate();
+    }
+
+    public int setIsDeleted(UUID productId, Boolean isDeleted) {
+        String q = "update ProductEntity p set p.isDeleted = :isDeleted where p.id = :productId";
+        return em.createQuery(q)
+                 .setParameter("productId", productId)
+                 .setParameter("isDeleted", isDeleted)
+                 .executeUpdate();
     }
 }
