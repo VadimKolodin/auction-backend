@@ -24,7 +24,7 @@ import static ru.stud.auc.product.ProductsApi.PRODUCTS_API_PATH;
 @RequestMapping(PRODUCTS_API_PATH)
 @Tag(name = "Методы для работы с товарами", description = PRODUCTS_API_PATH)
 public interface ProductsApi {
-    String PRODUCTS_API_PATH = "/api/product";
+    String PRODUCTS_API_PATH = "/api/products";
 
     @SecurityRequirements
     @GetMapping("/{productId}")
