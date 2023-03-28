@@ -38,8 +38,8 @@ public interface ProductsApi {
     @SecurityRequirements
     @Operation(summary = "Поиск товаров по параметрам")
     List<ProductView> searchProducts(
-            @RequestParam(name = "maxResult", required = true)  @Min(1) @Max(100) int size,
-            @RequestParam(name = "offset", required = true) @Min(0) int page,
+            @RequestParam(name = "size", required = true)  @Min(1) @Max(100) int size,
+            @RequestParam(name = "page", required = true) @Min(0) int page,
             @RequestParam(name = "nameSearchString") Optional<String> nameSearchString,
             @RequestParam(name = "nameAsc",  defaultValue = "true")   Optional<Boolean> nameAsc,
             @RequestParam(name = "costAsc",  defaultValue = "false")  Optional<Boolean> costAsc,
