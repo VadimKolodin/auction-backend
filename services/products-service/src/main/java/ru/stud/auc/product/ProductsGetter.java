@@ -2,6 +2,8 @@ package ru.stud.auc.product;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import ru.stud.auc.common.enums.SubTag;
+import ru.stud.auc.common.enums.Tag;
 import ru.stud.auc.consts.StringConsts;
 import ru.stud.auc.exception.NotFoundException;
 import ru.stud.auc.flowdata.product.ProductEntity;
@@ -10,6 +12,7 @@ import ru.stud.auc.flowdata.product.model.ProductAdminView;
 import ru.stud.auc.flowdata.product.model.ProductView;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Component
@@ -54,12 +57,11 @@ public class ProductsGetter {
         return productsRepository.getAllCurrentProducts();
     }
 
-    public  List<ProductView> searchProductByName(String name) { return productsRepository.searchProductsByName(name); }
+    public  List<ProductView> searchProductByName(int pageSize, int page, Optional<String> nameSearchString, Optional<Boolean> nameAsc, Optional<Boolean> costAsc, List<Tag> tags, List<SubTag> subTags) {
+        int offset = page * pageSize;
+        return productsRepository.searchProductsByName(pageSize, offset, nameSearchString, nameAsc, costAsc, tags, subTags);
+    }
 
-    public  List<ProductView> searchProductByDescription(String description)
-    { return productsRepository.searchProductsByDescription(description); }
 
-    public  List<ProductView> searchProductByNameOrDescription(String query)
-    { return productsRepository.searchProductsByNameOrDescription(query); }
 
 }
