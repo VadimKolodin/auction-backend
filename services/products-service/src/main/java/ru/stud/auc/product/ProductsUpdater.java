@@ -17,7 +17,7 @@ public class ProductsUpdater {
     private final ProductsRepository productsRepository;
 
     @Transactional
-    public void setImage(UUID productId, byte[] image) {
+    public void updateImage(UUID productId, byte[] image) {
         productsRepository.updateProductImage(productId, image);
     }
 

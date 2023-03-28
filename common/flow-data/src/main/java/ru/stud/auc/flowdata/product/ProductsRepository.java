@@ -131,7 +131,7 @@ public class ProductsRepository extends SoftDeleteAuditRepository<ProductEntity>
                    update ProductEntity p
                    set 
                    p.image = :image
-                   where p.id =:productId
+                   where p.id = :productId
                    """;
         em.createQuery(q)
                 .setParameter("productId", productId)
