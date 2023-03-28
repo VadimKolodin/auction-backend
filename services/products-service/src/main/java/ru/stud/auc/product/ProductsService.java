@@ -33,8 +33,8 @@ public class ProductsService {
         productsUpdater.restoreProduct(productId);
     }
     @Transactional
-    public List<ProductView> searchProducts(int maxResult,
-                                            int offset,
+    public List<ProductView> searchProducts(int size,
+                                            int page,
                                             Optional<String> nameSearchString,
                                             Optional<Boolean> nameAsc,
                                             Optional<Boolean> costAsc,
@@ -44,12 +44,7 @@ public class ProductsService {
         if (nameAsc.isPresent() && costAsc.isPresent() && nameAsc.get() && costAsc.get()) {
             throw new BadRequestException("Не могут быть одновременно выбраны 2 параметра сортировки. NameAsc = true && CostAsc = true");
         }
-        if (maxResult < 0) {
-            throw new BadRequestException("Количество максимальных результатов не может быть меньше 0");
-        }
-        if (offset < 0) {
-            throw new BadRequestException("Смещение не может быть меньше 0");
-        }
-        return productsInserter.searchProducts(maxResult, offset, nameSearchString, nameAsc, costAsc, tags, subTags);
+        int offset = page * size;
+        return productsInserter.searchProducts(size, offset, nameSearchString, nameAsc, costAsc, tags, subTags);
     }
 }

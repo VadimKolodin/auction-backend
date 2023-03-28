@@ -8,6 +8,8 @@ import ru.stud.auc.common.enums.SubTag;
 import ru.stud.auc.flowdata.product.model.ProductView;
 
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.util.UUID;
 
 import java.util.List;
@@ -36,8 +38,8 @@ public interface ProductsApi {
     @SecurityRequirements
     @Operation(summary = "Поиск товаров по параметрам")
     List<ProductView> searchProducts(
-            @RequestParam(name = "maxResult", required = true)   int maxResult,
-            @RequestParam(name = "offset", required = true) int offset,
+            @RequestParam(name = "maxResult", required = true)  @Min(1) @Max(100) int size,
+            @RequestParam(name = "offset", required = true) @Min(0) int page,
             @RequestParam(name = "nameSearchString") Optional<String> nameSearchString,
             @RequestParam(name = "nameAsc",  defaultValue = "true")   Optional<Boolean> nameAsc,
             @RequestParam(name = "costAsc",  defaultValue = "false")  Optional<Boolean> costAsc,

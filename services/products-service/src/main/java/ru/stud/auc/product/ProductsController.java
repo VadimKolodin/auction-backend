@@ -27,8 +27,8 @@ public class ProductsController implements ProductsApi {
 
     @Override
     public List<ProductView> searchProducts (
-            int maxResult,
-            int offset,
+            int size,
+            int page,
             Optional<String> nameSearchString,
             Optional<Boolean> nameAsc,
             Optional<Boolean> costAsc,
@@ -37,6 +37,6 @@ public class ProductsController implements ProductsApi {
 
     ) {
 
-        return productsService.searchProducts(maxResult, offset, nameSearchString, nameAsc, costAsc, tags, subTags);
+        return productsService.searchProducts(size, page, nameSearchString, nameAsc, costAsc, tags, subTags);
     }
 }
