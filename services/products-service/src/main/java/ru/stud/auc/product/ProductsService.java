@@ -1,13 +1,21 @@
 package ru.stud.auc.product;
 
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Service;
+import org.apache.commons.io.IOUtils;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 import ru.stud.auc.common.enums.SubTag;
 import ru.stud.auc.common.enums.Tag;
 import ru.stud.auc.exception.BadRequestException;
 import ru.stud.auc.flowdata.product.model.ProductView;
 import ru.stud.auc.product.model.ProductDto;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Objects;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
@@ -31,6 +39,10 @@ public class ProductsService {
 
     public void restoreProduct(UUID productId) {
         productsUpdater.restoreProduct(productId);
+    }
+
+    public void uploadPhoto(UUID productId, byte[] image) {
+        productsUpdater.updateImage(productId, image);
     }
     @Transactional
     public List<ProductView> searchProducts(int size,

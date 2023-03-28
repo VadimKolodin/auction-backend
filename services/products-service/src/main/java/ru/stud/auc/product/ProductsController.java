@@ -2,6 +2,8 @@ package ru.stud.auc.product;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import ru.stud.auc.common.enums.SubTag;
 import ru.stud.auc.common.enums.Tag;
@@ -41,4 +43,15 @@ public class ProductsController implements ProductsApi {
 
         return productsService.searchProducts(size, page, nameSearchString, nameAsc, costAsc, tags, subTags);
     }
+
+    @Override
+    public ResponseEntity<byte[]> getImageProduct(UUID productId) {
+     byte[] bytes =  productsGetter.getProduct(productId).getImage();
+        return ResponseEntity
+                .ok()
+                .contentType(MediaType.IMAGE_PNG)
+                .body(bytes);
+    }
+
+
 }

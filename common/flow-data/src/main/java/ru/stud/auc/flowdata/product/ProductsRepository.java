@@ -118,4 +118,20 @@ public class ProductsRepository extends SoftDeleteAuditRepository<ProductEntity>
           .setParameter("cost", cost)
           .executeUpdate();
     }
+
+    public void updateProductImage(UUID productId, byte[] image){
+        String q = """
+                   update ProductEntity p
+                   set 
+                   p.image = :image
+                   where p.id = :productId
+                   """;
+        em.createQuery(q)
+                .setParameter("productId", productId)
+                .setParameter("image", image)
+                .executeUpdate();
+
+    }
+
+
 }

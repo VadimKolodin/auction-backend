@@ -37,6 +37,14 @@ public class ProductsGetter {
         }
         return productsMapper.toView(product);
     }
+    public ProductEntity getProductEntity(UUID productId) {
+        ProductEntity product = productsRepository.findById(productId)
+                .orElseThrow(() -> new NotFoundException(StringConsts.Product.NOT_FOUND));
+        if (product.getIsDeleted()) {
+            throw new NotFoundException(StringConsts.Product.NOT_FOUND);
+        }
+        return product;
+    }
 
     public void checkExistsAndNotDeleted(UUID productId) {
         ProductEntity productEntity = productsRepository.findById(productId).orElseThrow(() -> new NotFoundException(StringConsts.Product.NOT_FOUND));
