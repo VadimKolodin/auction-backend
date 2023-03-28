@@ -11,6 +11,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import ru.stud.auc.auth.config.properties.AuthenticationProperties;
 import ru.stud.auc.auth.jwt.JwtAuthenticationFilter;
 
@@ -28,6 +30,8 @@ public class SecurityConfiguration {
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http
+            .cors()
+            .and()
             .csrf()
             .disable()
             .authorizeHttpRequests()
@@ -49,4 +53,5 @@ public class SecurityConfiguration {
 
     return http.build();
   }
+
 }

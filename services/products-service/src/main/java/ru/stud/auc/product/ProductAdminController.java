@@ -3,11 +3,11 @@ package ru.stud.auc.product;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.IOUtils;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
+import ru.stud.auc.annotation.hasroles.HasRole;
 import org.springframework.web.multipart.MultipartFile;
-import ru.stud.auc.exception.BadRequestException;
 import ru.stud.auc.exception.InternalException;
-import ru.stud.auc.exception.NotFoundException;
 import ru.stud.auc.flowdata.product.model.ProductAdminView;
 import ru.stud.auc.flowdata.product.model.ProductView;
 import ru.stud.auc.product.model.ProductDto;
@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.UUID;
 @RestController
+@CrossOrigin(origins = "*")
 @RequiredArgsConstructor
 public class ProductAdminController implements ProductsAdminApi {
 
@@ -26,26 +27,31 @@ public class ProductAdminController implements ProductsAdminApi {
     private final ProductsService productsService;
 
     @Override
+    @HasRole("ADMIN")
     public ProductAdminView getProduct(UUID productId) {
         return productsGetter.getProductWithDeleted(productId);
     }
 
     @Override
+    @HasRole("ADMIN")
     public ProductView createProduct(ProductDto request) {
         return productsService.createProduct(request);
     }
 
     @Override
+    @HasRole("ADMIN")
     public void deleteProduct(UUID productId) {
         productsService.deleteProduct(productId);
     }
 
     @Override
+    @HasRole("ADMIN")
     public void restoreProduct(UUID productId) {
         productsService.restoreProduct(productId);
     }
 
     @Override
+    @HasRole("ADMIN")
     public void uploadProduct(UUID productId, MultipartFile multipartFile) {
         try {
             String fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));

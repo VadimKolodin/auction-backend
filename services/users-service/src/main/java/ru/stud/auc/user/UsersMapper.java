@@ -5,6 +5,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 import ru.stud.auc.annotation.mapstruct.IgnoreUpdateAuditFileds;
+import ru.stud.auc.dto.UserDto;
 import ru.stud.auc.dto.UserRegistrationDto;
 import ru.stud.auc.flowdata.user.UserEntity;
 import ru.stud.auc.flowdata.user.model.UserView;
@@ -14,6 +15,8 @@ import ru.stud.auc.flowdata.user.model.UserView;
 public interface UsersMapper {
 
     UserView toView(UserEntity u);
+
+    UserDto toDto(UserEntity u);
 
     @Mapping(target = "id", expression = "java(java.util.UUID.randomUUID())")
     @Mapping(target = "isDeleted", ignore = true)

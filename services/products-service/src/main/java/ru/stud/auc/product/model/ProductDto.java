@@ -18,7 +18,6 @@ import javax.validation.constraints.Pattern;
 public class ProductDto {
 
     @NotBlank
-    @Pattern(regexp = "[^?!.,\\\\\"/';:&%$#@^*()-_]+")
     private String name;
 
     private String description;

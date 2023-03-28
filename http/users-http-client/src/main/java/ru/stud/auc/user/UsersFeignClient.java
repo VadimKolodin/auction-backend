@@ -7,7 +7,7 @@ import ru.stud.auc.flowdata.user.model.UserView;
 
 import javax.validation.Valid;
 
-@FeignClient(name = "usersFeignClient", url = "${http-clients.users}/api/users")
+@FeignClient(name = "usersFeignClient", url = "${http-clients.users}/api/user")
 public interface UsersFeignClient {
 
 

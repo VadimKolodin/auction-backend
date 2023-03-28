@@ -43,6 +43,13 @@ public class ProductsGetter {
         return product;
     }
 
+    public void checkExistsAndNotDeleted(UUID productId) {
+        ProductEntity productEntity = productsRepository.findById(productId).orElseThrow(() -> new NotFoundException(StringConsts.Product.NOT_FOUND));
+        if (productEntity.getIsDeleted()) {
+            throw new NotFoundException(StringConsts.Product.NOT_FOR_SALE);
+        }
+    }
+
     public List<ProductView> getAllCurrentProducts() {
         return productsRepository.getAllCurrentProducts();
     }

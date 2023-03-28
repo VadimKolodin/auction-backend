@@ -1,7 +1,7 @@
-package ru.stud.auc.flowdata.user.cart;
+package ru.stud.auc.flowdata.product.cart;
 
 
-import ru.stud.auc.flowdata.user.inventory.InventoryEntityId;
+import ru.stud.auc.flowdata.product.inventory.InventoryEntityId;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -15,11 +15,11 @@ import javax.persistence.Table;
 @Setter
 @ToString
 @Entity
-@Table(name="casrt")
+@Table(name="products_carts")
 public class CartEntity {
 
     @EmbeddedId
-    private InventoryEntityId id;
+    private CartEntityId id;
 
     @Column(name="amount")
     private Integer amount;

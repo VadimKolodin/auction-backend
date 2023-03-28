@@ -1,4 +1,4 @@
-package ru.stud.auc.flowdata.user.cart;
+package ru.stud.auc.flowdata.product.inventory;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -6,6 +6,7 @@ import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.Entity;
 import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
 import java.util.UUID;
@@ -14,7 +15,7 @@ import java.util.UUID;
 @Setter
 @ToString
 @Embeddable
-public class CartEntityId implements Serializable {
+public class InventoryEntityId implements Serializable {
 
     @Column(name="product_id")
     private UUID productId;

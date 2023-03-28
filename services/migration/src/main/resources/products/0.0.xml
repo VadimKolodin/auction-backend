@@ -37,4 +37,20 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="AUC-20" author="Vadim">
+        <createTable tableName="products_carts">
+            <column name="product_id" type="uuid">
+                <constraints primaryKey="true" references="products(id)"
+                             foreignKeyName="fk_products_carts_id_products_id"/>
+            </column>
+            <column name="client_id" type="uuid">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="amount" type="int">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+    </changeSet>
+
 </databaseChangeLog>
