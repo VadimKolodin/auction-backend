@@ -53,7 +53,7 @@ public class ProductsService {
                                             List<Tag> tags,
                                             List<SubTag> subTags) {
 
-        if (nameAsc.isPresent() && costAsc.isPresent() && nameAsc.get() && costAsc.get()) {
+        if (nameAsc.orElse(false) && costAsc.orElse(false)) {
             throw new BadRequestException("Не могут быть одновременно выбраны 2 параметра сортировки. NameAsc = true && CostAsc = true");
         }
         int offset = page * size;

@@ -68,11 +68,11 @@ public class ProductsRepository extends SoftDeleteAuditRepository<ProductEntity>
             q.append(" and p.name like :searchString ");
             parameters.put("searchString", '%'+nameSearchString.get()+'%');
         }
-        if (CollectionUtils.isEmpty(tags)){
+        if (tags != null && CollectionUtils.isEmpty(tags)){
             q.append(" and p.tag in :tags ");
             parameters.put("tags", tags);
         }
-        if (CollectionUtils.isEmpty(subTags)){
+        if (subTags != null && CollectionUtils.isEmpty(subTags)){
             q.append(" and p.subTag in :subTags ");
             parameters.put("subTags", subTags);
         }
