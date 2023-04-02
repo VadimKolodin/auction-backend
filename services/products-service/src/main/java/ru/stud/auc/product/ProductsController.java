@@ -43,7 +43,7 @@ public class ProductsController implements ProductsApi {
 
         return productsService.searchProducts(size, page, nameSearchString, nameAsc, costAsc, tags, subTags);
     }
-
+/*
     @Override
     public ResponseEntity<byte[]> getImageProduct(UUID productId) {
      byte[] bytes =  productsGetter.getProduct(productId).getImage();
@@ -52,6 +52,6 @@ public class ProductsController implements ProductsApi {
                 .contentType(MediaType.IMAGE_PNG)
                 .body(bytes);
     }
-
+*/
 
 }

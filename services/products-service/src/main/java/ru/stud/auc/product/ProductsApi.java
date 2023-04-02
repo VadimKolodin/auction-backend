@@ -35,11 +35,13 @@ public interface ProductsApi {
     @GetMapping("/{productId}")
     @Operation(summary = "Получение товара")
     ProductView getProduct(@PathVariable UUID productId);
-
+/*
     @RequestMapping(value = "{productId}" , method = RequestMethod.GET,
             produces = MediaType.IMAGE_PNG_VALUE)
     @Operation(summary = "Получение картинки товара")
     ResponseEntity<byte[]> getImageProduct(@PathVariable UUID productId);
+
+    */
 
 
     @GetMapping
