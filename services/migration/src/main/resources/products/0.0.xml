@@ -53,4 +53,12 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="AUC-ref" author="Vadim">
+        <addColumn tableName="products">
+            <column name="min_cost" type="int" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

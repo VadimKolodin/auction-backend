@@ -42,4 +42,7 @@ public class ProductEntity extends SoftDeleteEntity {
 
     @Column(name= "cost")
     private Integer cost;
+
+    @Column(name= "min_cost")
+    private Integer minCost;
 }

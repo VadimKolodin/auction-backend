@@ -3,6 +3,7 @@ package ru.stud.auc.product.cart;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
 import ru.stud.auc.annotation.hasroles.HasRole;
+import ru.stud.auc.product.auction.model.AuctionDto;
 import ru.stud.auc.product.cart.model.AddCartDto;
 import ru.stud.auc.product.cart.model.CartRequestDto;
 
@@ -43,5 +44,18 @@ public class CartsController implements CartsApi {
     @HasRole("CLIENT")
     public void clear() {
         cartsService.clearCart();
+    }
+
+    @Override
+    @HasRole("CLIENT")
+    public void buyAll() {
+        //TODO: сделать (все в одной транзакции)
+    }
+
+    @Override
+    @HasRole("CLIENT")
+    public AuctionDto buy(UUID productId) {
+        //TODO: сделать
+        return null;
     }
 }
