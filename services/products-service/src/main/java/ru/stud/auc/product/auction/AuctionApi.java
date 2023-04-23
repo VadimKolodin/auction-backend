@@ -31,7 +31,7 @@ public interface AuctionApi {
     @Operation(summary = "Получение моих аукционов (покупатель-продавец)")
     AuctionSummaryDto getMyAuctions();
 
-    @GetMapping("/{auctionId}}")
+    @GetMapping("/{auctionId}")
     @Operation(summary = "Получение аукциона")
     AuctionResponseDto getAuction();
 

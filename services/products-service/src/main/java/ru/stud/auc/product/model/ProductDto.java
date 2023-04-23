@@ -30,4 +30,8 @@ public class ProductDto {
     @Min(0)
     @NotNull
     private Integer cost;
+
+    @Min(0)
+    @NotNull
+    private Integer minCost;
 }
