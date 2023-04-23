@@ -3,9 +3,7 @@ package ru.stud.auc.product.auction;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
-import ru.stud.auc.product.auction.model.AuctionBetDto;
-import ru.stud.auc.product.auction.model.AuctionResponseDto;
-import ru.stud.auc.product.auction.model.AuctionSummaryDto;
+import ru.stud.auc.product.auction.model.*;
 
 import java.util.UUID;
 
@@ -24,6 +22,10 @@ public interface AuctionApi {
     @GetMapping
     @Operation(summary = "Получение аукционов")
     AuctionSummaryDto getAll();
+
+    @PostMapping
+    @Operation(summary = "Создание аукциона")
+    AuctionDto create(AuctionCreateDto dto);
 
     @GetMapping("/my")
     @Operation(summary = "Получение моих аукционов (покупатель-продавец)")
