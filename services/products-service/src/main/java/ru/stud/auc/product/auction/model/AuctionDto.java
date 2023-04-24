@@ -1,9 +1,12 @@
 package ru.stud.auc.product.auction.model;
 
+import lombok.Data;
+
 import javax.persistence.Column;
 import javax.persistence.Id;
 import java.util.UUID;
 
+@Data
 public class AuctionDto {
 
     @Id

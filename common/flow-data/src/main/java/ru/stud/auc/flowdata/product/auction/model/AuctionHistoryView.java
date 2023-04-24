@@ -1,12 +1,16 @@
-package ru.stud.auc.product.auction.model;
+package ru.stud.auc.flowdata.product.auction.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
-public class AuctionHistoryDto {
+@AllArgsConstructor
+public class AuctionHistoryView {
 
     private UUID id;
 

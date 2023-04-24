@@ -38,6 +38,7 @@ public class JwtGeneratorService {
                            .setHeaderParam("userId", userDetails.getId())
                            .setHeaderParam("role", userDetails.getRole().name())
                            .setHeaderParam("login", userDetails.getUsername())
+                            .setSubject( userDetails.getUsername())
                            .setIssuedAt(now)
                            .setExpiration(expiration)
                            .signWith(readerService.getSignInKey(), SignatureAlgorithm.HS256)

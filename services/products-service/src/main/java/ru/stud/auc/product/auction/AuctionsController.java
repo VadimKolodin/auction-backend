@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.stud.auc.annotation.hasroles.HasRole;
 import ru.stud.auc.product.auction.model.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -13,15 +14,17 @@ public class AuctionsController implements AuctionApi {
 
     private final AuctionCreateService auctionCreateService;
 
+    private final AuctionsGetService auctionsGetService;
+
     @Override
     @HasRole("ADMIN")
-    public AuctionSummaryDto getAuctionsAdmin() {
-        return null;
+    public List<AuctionSummaryDto> getAuctionsAdmin(boolean isActive, int page, int size) {
+        return auctionsGetService.getAll(isActive, page, size);
     }
 
     @Override
     @HasRole("SELLER")
-    public AuctionSummaryDto getAll() {
+    public List<AuctionSummaryDto> getAvailable() {
         return null; //TODO: олучает те аукционы, в которых может участвовать (есть товар)
     }
 
@@ -32,8 +35,8 @@ public class AuctionsController implements AuctionApi {
     }
 
     @Override
-    public AuctionSummaryDto getMyAuctions() {
-        return null; //TODO: клиент получает выставленные им аукционы, продавец получает те, где делал хотя бы одну ставку
+    public List<AuctionSummaryDto> getMyAuctions(int page, int size) {
+        return auctionsGetService.getMyAuctions(page, size);
     }
 
     @Override

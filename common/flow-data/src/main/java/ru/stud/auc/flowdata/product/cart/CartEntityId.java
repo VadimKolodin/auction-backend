@@ -22,4 +22,11 @@ public class CartEntityId implements Serializable {
     @Column(name="client_id")
     private UUID clientId;
 
+    public static CartEntityId of(UUID productId, UUID clientId) {
+        CartEntityId cartEntityId = new CartEntityId();
+        cartEntityId.setClientId(clientId);
+        cartEntityId.setProductId(productId);
+        return cartEntityId;
+    }
+
 }
