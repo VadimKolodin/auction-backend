@@ -37,7 +37,7 @@ public class JwtGeneratorService {
                            .setClaims(extraClaims)
                            .setHeaderParam("userId", userDetails.getId())
                            .setHeaderParam("role", userDetails.getRole().name())
-                           .setSubject(userDetails.getUsername())
+                           .setHeaderParam("login", userDetails.getUsername())
                            .setIssuedAt(now)
                            .setExpiration(expiration)
                            .signWith(readerService.getSignInKey(), SignatureAlgorithm.HS256)
