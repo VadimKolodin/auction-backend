@@ -4,15 +4,18 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import ru.stud.auc.flowdata.product.inventory.InventoryRepository;
 
+import javax.transaction.Transactional;
 import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
-public class SellerInventoryUpdater {
+public class InventoryUpdater {
 
     private final InventoryRepository inventoryRepository;
 
-    public void updateAmount(UUID productId, UUID sellerId, int amount) {
-        inventoryRepository.updateAmount(productId, sellerId, amount);
+    @Transactional
+    public void setAmount(UUID productId, UUID sellerId, int amount) {
+        int result = inventoryRepository.setAmount(productId, sellerId, amount);
+
     }
 }

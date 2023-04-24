@@ -20,12 +20,6 @@ import static ru.stud.auc.product.inventory.SellerInventoryApi.SELLER_INVENOTRY_
 public interface SellerInventoryApi {
     String SELLER_INVENOTRY_API_PATH = "/api/seller-inventory";
 
-    /*
-    //TODO:вынести метод в класс для апи админа (InventoryAdminApi)
-    @GetMapping("/{sellerId}")
-    @Operation(summary = "Получение товаров продавца")
-    SellerProductsDto getSellerInventory(@PathVariable UUID sellerId);
-    */
 
 
     //TODO:сделать метод, просто get (без доп маппинга пути), а айдишник селлера получить из AuthenticationUtils
