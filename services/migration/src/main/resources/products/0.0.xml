@@ -53,4 +53,55 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="AUC-ref" author="Vadim">
+        <addColumn tableName="products">
+            <column name="min_cost" type="int" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="AUC-23-0" author="Vadim">
+        <createTable tableName="products_auctions">
+            <column name="id" type="uuid">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="product_id" type="uuid">
+                <constraints nullable="false" references="products(id)"
+                             foreignKeyName="fk_products_auctions_id_products_id"/>
+            </column>
+            <column name="client_id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="seller_id" type="uuid"/>
+            <column name="price" type="int"/>
+            <column name="end_time" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+    </changeSet>
+
+    <changeSet id="AUC-23-1" author="Vadim">
+        <createTable tableName="products_auctions_history">
+            <column name="id" type="uuid">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="auction_id" type="uuid">
+                <constraints nullable="false" references="products_auctions(id)"
+                             foreignKeyName="fk_products_auctions_history_id_products_auctions_id"/>
+            </column>
+            <column name="seller_id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="request_date" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+    </changeSet>
+
 </databaseChangeLog>

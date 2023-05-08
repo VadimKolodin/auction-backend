@@ -1,6 +1,13 @@
 server:
   port: ${SERVER_PORT:8081}
+  max-http-header-size: 100MB
+  tomcat:
+    max-http-form-post-size: 100MB
 spring:
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
   main:
     banner-mode: off
   datasource:
@@ -40,4 +47,4 @@ auth:
     - "/swagger-resources/**"
     - "/configuration/security"
     - "/api/commons/**"
-    - "/api/product/**"
+    - "/api/products/**"

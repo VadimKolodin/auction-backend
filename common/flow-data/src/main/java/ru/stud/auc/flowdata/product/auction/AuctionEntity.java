@@ -15,7 +15,7 @@ import java.util.UUID;
 @Setter
 @ToString
 @Entity
-@Table(name = "auction")
+@Table(name = "products_auctions")
 public class AuctionEntity {
 
     @Id

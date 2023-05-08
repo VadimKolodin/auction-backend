@@ -3,6 +3,7 @@ package ru.stud.auc.product.cart;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
+import ru.stud.auc.product.auction.model.AuctionDto;
 import ru.stud.auc.product.cart.model.AddCartDto;
 import ru.stud.auc.product.cart.model.CartRequestDto;
 
@@ -36,5 +37,13 @@ public interface CartsApi {
     @DeleteMapping
     @Operation(summary = "Очистить корзину")
     void clear();
+
+    @PostMapping("/buy")
+    @Operation(summary = "Купить все втораы из корзины")
+    void buyAll();
+
+    @PostMapping("/buy/{productId}")
+    @Operation(summary = "Купить определенный товар из корзины")
+    AuctionDto buy(@PathVariable UUID productId);
 
 }

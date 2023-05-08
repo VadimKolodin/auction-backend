@@ -4,9 +4,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import ru.stud.auc.consts.StringConsts;
 import ru.stud.auc.exception.NotFoundException;
+import ru.stud.auc.flowdata.product.cart.CartEntity;
+import ru.stud.auc.flowdata.product.cart.CartEntityId;
 import ru.stud.auc.flowdata.product.cart.CartsRepository;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 import java.util.UUID;
 
 @Component
@@ -20,6 +23,17 @@ public class CartsUpdater {
         int result = cartsRepository.setAmount(productId, userId, amount);
         if (result < 1) {
             throw new NotFoundException(StringConsts.Cart.NOT_FOUND);
+        }
+    }
+
+    @Transactional
+    public void decrementAmount(UUID productId, UUID userId) {
+        Optional<CartEntity> cart = cartsRepository.findById(CartEntityId.of(productId, userId));
+        int currentAmount = cart.orElseThrow(() -> new NotFoundException(StringConsts.Cart.NOT_FOUND)).getAmount();
+        if (currentAmount == 0) {
+            cartsRepository.deleteFromCart(productId, userId);
+        } else {
+            cartsRepository.setAmount(productId, userId, currentAmount - 1);
         }
     }
 }

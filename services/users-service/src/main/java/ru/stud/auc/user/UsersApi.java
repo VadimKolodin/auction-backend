@@ -15,7 +15,7 @@ import java.util.UUID;
 
 @Validated
 @RequestMapping(UsersApi.USERS_API_PATH)
-@Tag(name = "Методы для работы с пользователями", description = UsersApi.USERS_API_PATH)
+@Tag(name = "Внутренние методы для работы с пользователями", description = UsersApi.USERS_API_PATH)
 public interface UsersApi {
     String USERS_API_PATH = "/api/user";
 
