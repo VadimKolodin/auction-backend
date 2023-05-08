@@ -19,4 +19,8 @@ public class StringConsts {
     public static class Auction {
         public static final String NOT_FOUND = "Аукцион не найден";
     }
+
+    public static class Inventory {
+        public static final String NOT_FOUND = "Такого товара нет в ассортименте";
+    }
 }
