@@ -4,11 +4,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.stud.auc.auth.util.AuthenticationUtils;
+import ru.stud.auc.exception.NotFoundException;
 import ru.stud.auc.flowdata.product.inventory.model.InventoryProductView;
 import ru.stud.auc.product.ProductsGetter;
+import ru.stud.auc.product.inventory.model.InventoryAmountDto;
 import ru.stud.auc.product.model.SellerProductsDto;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Service
@@ -41,17 +44,17 @@ public class SellerInventoryService {
 
     public void setInventoryAmount(UUID productId, int amount) {
         productsGetter.checkExistsAndNotDeleted(productId);
-        List<InventoryProductView> inventoryProductViewList = inventoryGetter.getSellerInventory(AuthenticationUtils.getUserId());
-
-        if (isExists(inventoryProductViewList, productId)) {
+        try {
+            InventoryAmountDto inventoryAmountDto = inventoryGetter.getSellerInventory(AuthenticationUtils.getUserId(), productId);
             if (amount == 0){
                 deleteInventoryProduct(productId);
-            }else {
+            } else {
                 inventoryUpdater.setAmount(productId, AuthenticationUtils.getUserId(), amount);
             }
-        } else {
+        } catch (NotFoundException e) {
             addToInventory(productId);
         }
+
     }
     
     public void deleteInventory() {
@@ -62,13 +65,5 @@ public class SellerInventoryService {
         productsGetter.checkExistsAndNotDeleted(productId);
         inventoryDeleter.deleteInventoryProduct(productId, AuthenticationUtils.getUserId());
     }
-    
-    private boolean isExists(List<InventoryProductView> inventoryProductViewList, UUID productID){
-        for (InventoryProductView view:inventoryProductViewList) {
-            if (view.getProductId().equals(productID)){
-                return true;
-            }
-        }
-        return false;
-    }
+
 }

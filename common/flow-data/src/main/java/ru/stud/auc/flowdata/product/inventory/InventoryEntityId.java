@@ -23,4 +23,12 @@ public class InventoryEntityId implements Serializable {
     @Column(name="seller_id")
     private UUID sellerId;
 
+
+    public static InventoryEntityId of(UUID productId, UUID sellerId) {
+        InventoryEntityId id = new InventoryEntityId();
+        id.setSellerId(sellerId);
+        id.setProductId(productId);
+        return id;
+    }
+
 }

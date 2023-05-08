@@ -15,4 +15,8 @@ public class StringConsts {
     public static class Cart {
         public static final String NOT_FOUND = "Такого товара нет в корзине";
     }
+
+    public static class Inventory {
+        public static final String NOT_FOUND = "Такого товара нет в ассортименте";
+    }
 }
