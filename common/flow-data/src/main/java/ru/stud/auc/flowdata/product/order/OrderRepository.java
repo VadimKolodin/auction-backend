@@ -14,7 +14,7 @@ import java.util.UUID;
 @Repository
 public class OrderRepository extends AbstractRepository<OrderEntity> {
 
-    public List<OrderView> findSellerOrders(UUID clientId, int size, int offset) {
+    public List<OrderView> findClientOrders(UUID clientId, int size, int offset) {
         String q = """
                 select new ru.stud.auc.flowdata.product.order.model.OrderView(
                 a.id,

@@ -19,8 +19,6 @@ import java.util.*;
 
 @Repository
 public class ProductsRepository extends SoftDeleteAuditRepository<ProductEntity> {
-    private final int MAX_RESULTS = 150;
-    private final int OFFSET = 0;
 
 
     public int setIsDeleted(UUID productId, Boolean isDeleted) {
